@@ -1,45 +1,45 @@
-import '../styles/issues.css'
+import '../styles/tasks.css'
 import { useAtom } from "jotai";
 import { FormEvent, MouseEvent, useEffect, useMemo, useRef, useState } from "react";
-import { issueType, statuses } from "./commons.interfaces";
+import { taskType, statuses } from "./commons.interfaces";
 import { useDrag } from '@use-gesture/react'
 import { animated, useSpring } from 'react-spring'
 import { useBoundingClientObserver } from "../observers/useResizeObserver";
 import { endDateIsValid } from "./validators";
 import { 
-    addIssue, 
+    addtask, 
     currentTargetBox, 
-    issuesBoxRect, 
-    issuesData, 
-    moveIssue, 
+    tasksBoxRect, 
+    tasksData, 
+    movetask, 
     showAddForm, 
     updateCurrentTargetBox 
 } from "../storage";
 import data from '../ISSUES.json'
 
-export default function Issues() {
-    const [{backlog, todo, done}, setIssues] = useAtom(issuesData)
+export default function tasks() {
+    const [{backlog, todo, done}, settasks] = useAtom(tasksData)
     const [showFormBox] = useAtom(showAddForm)
     useEffect(() => {
-        setIssues(data)
+        settasks(data)
     }, [])
 
 
     return (
-        <section id='issues'>
-            <IssuesBox issues={backlog} status="backlog" />
-            <IssuesBox issues={todo} status="todo" />
-            <IssuesBox issues={done} status="done" />
-            {showFormBox && <AddIssueForm status={showFormBox} />}   
+        <section id='tasks'>
+            <TasksBox tasks={backlog} status="backlog" />
+            <TasksBox tasks={todo} status="todo" />
+            <TasksBox tasks={done} status="done" />
+            {showFormBox && <AddtaskForm status={showFormBox} />}   
         </section>
     )
 
 }
 
 
-const IssuesBox = ({ issues, status }: { issues: issueType[] | undefined, status: statuses }) => {
+const TasksBox = ({ tasks, status }: { tasks: taskType[] | undefined, status: statuses }) => {
     const ref = useRef<HTMLDivElement>(null!)
-    const [, setboxRect] = useAtom(issuesBoxRect)
+    const [, setboxRect] = useAtom(tasksBoxRect)
     const [curTarget] = useAtom(currentTargetBox)
     const rect = useBoundingClientObserver(ref)
     const classname = useMemo(() => status === curTarget ? 'targeted': '', [curTarget])
@@ -53,51 +53,51 @@ const IssuesBox = ({ issues, status }: { issues: issueType[] | undefined, status
 
     return (
         <section id={status} ref={ref} className={classname}>
-            <div className='issues-head'>
+            <div className='tasks-head'>
                 <h3>{mapStatusString[status]}</h3>
                 <button onClick={() => setShowFormBox(status)}>+ add task</button>
             </div>   
             {
-            issues 
-            ? issues.map(issue => <IssueCard key={issue.issue_id} issue={issue} status={status} /> ) 
-            : <h3>no issues</h3>
+            tasks 
+            ? tasks.map(task => <TaskCard key={task.task_id} task={task} status={status} /> ) 
+            : <h3>no tasks</h3>
             }          
         </section>
     )
 }
 
-const IssueCard = ({ issue, status }: { issue: issueType, status: statuses }) => {
-    const [,move] = useAtom(moveIssue)
+const TaskCard = ({ task, status }: { task: taskType, status: statuses }) => {
+    const [,move] = useAtom(movetask)
     const [,updateTarget] = useAtom(updateCurrentTargetBox)
     const [{x, y}, spring] = useSpring(() => ({ x: 0, y: 0 }))
-    const {days, isLate} = getRemainingDay(issue.end_date)
-    const [classname, setClassname] = useState('issue')
+    const {days, isLate} = getRemainingDay(task.end_date)
+    const [classname, setClassname] = useState('task')
 
     const bind = useDrag(({down, movement: [mx, my],...state}) => {
         spring.start({ x: down ? mx : 0, y: down ? my : 0, immediate: down })
         updateTarget(state.xy)
         if (!down) {
-            setClassname('issue')
+            setClassname('task')
             move({
-                issue,
+                task,
                 from: status
             })
         }
-        else setClassname('issue hovered')
+        else setClassname('task hovered')
     })
 
     return (
         <animated.div className={classname} style={{ x, y }} {...bind()}>
-            <h4 title={issue.title}>{issue.title}</h4>
-            <p className="assignee">{issue.assignee}</p>
-            <div className="tags"><p>{issue.tags}</p></div>
+            <h4 title={task.title}>{task.title}</h4>
+            <p className="assignee">{task.assignee}</p>
+            <div className="tags"><p>{task.tags}</p></div>
             <small style={{ color: isLate ? 'red' : 'inherit' }}>{days}</small>
         </animated.div>
     )
 }
 
-const AddIssueForm = ({ status }: { status: statuses }) => {
-    const [, addData] = useAtom(addIssue)
+const AddtaskForm = ({ status }: { status: statuses }) => {
+    const [, addData] = useAtom(addtask)
     const [, setShowFormBox] = useAtom(showAddForm)
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
@@ -130,7 +130,7 @@ const AddIssueForm = ({ status }: { status: statuses }) => {
     }
 
     return (
-        <div id='add-issue-form' onClick={closeForm}>
+        <div id='add-task-form' onClick={closeForm}>
             <form onSubmit={handleSubmit}>
                 <h3>New Task</h3>
                 <input name='_title' placeholder="Title" required/>
@@ -152,7 +152,7 @@ const AddIssueForm = ({ status }: { status: statuses }) => {
 const getRemainingDay = (endDate:string) => {
     const date = new Date(endDate).valueOf()
     const curDate = Date.now()
-    const different = Math.ceil((date - curDate) / (1000 * 60 * 60 * 24))
+    const different = Math.ceil((curDate - date) / (1000 * 60 * 60 * 24))
     if (different === 0) return { isLate: false, days: 'today'}
     return (
         different > 0

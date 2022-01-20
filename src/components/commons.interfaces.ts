@@ -1,5 +1,5 @@
-interface issueType {
-    issue_id: number,
+interface taskType {
+    task_id: number,
     title: string,
     assignee: string,
     start_date: string,
@@ -7,12 +7,12 @@ interface issueType {
     tags: string
 }
 
-interface issuesType {
-    backlog: issueType[],
-    todo: issueType[],
-    done: issueType[]
+interface tasksType {
+    backlog: taskType[],
+    todo: taskType[],
+    done: taskType[]
 }
 
 type statuses = 'backlog' | 'todo' | 'done'
 
-export type { issueType, issuesType, statuses }
+export type { taskType, tasksType, statuses }

@@ -1,5 +1,5 @@
 
-#issues {
+#tasks {
     display: flex;
     gap: 1rem;
     justify-content: center;
@@ -9,11 +9,11 @@
     overflow: auto;
   }
 
-#issues button {
+#tasks button {
     background: var(--color-btn);
 }
 
-  .issues-head {
+  .tasks-head {
     display: flex;
     width: calc(100% - 2rem);
     margin: 1rem 0;
@@ -22,7 +22,7 @@
     place-items: center;
   }
   
-  #issues>section {
+  #tasks>section {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -35,16 +35,16 @@
     transition: 0.6s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
   
-  .issues-head>h3 {
+  .tasks-head>h3 {
     padding: 1rem 0;
     font-size: xx-large;
   }
   
-  #issues>section.targeted {
+  #tasks>section.targeted {
     background: var(--color-bg-1);
   }
   
-  .issue {
+  .task {
     padding: 1rem;
     border-radius: 0.5rem;
     background: var(--color-card);
@@ -61,29 +61,29 @@
     transition: background-color 1s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
   
-  .issue * {
+  .task * {
     overflow: hidden;
   }
   
-  .issue h4 {
+  .task h4 {
     grid-area: title;
     width: 100%;
   }
   
-  .issue p {
+  .task p {
     font-size: smaller;
     margin: 0;
     
   }
   
-  .issue .assignee {
+  .task .assignee {
     grid-area: assignee;
     margin: 0;
     font-size: small;
     opacity: 0.7;
   }
   
-  .issue .tags {
+  .task .tags {
     grid-area: tags;
     margin: 0;
     padding: 0.3rem;
@@ -100,19 +100,19 @@
     color: var(--color-tags);
   }
   
-  .issue small {
+  .task small {
     grid-area: days;
     text-align: end;
   }
   
-  .issue:hover, .issue.hovered {
+  .task:hover, .task.hovered {
     cursor: pointer;
     background: var(--color-card-selected);
     z-index: 2;
   }
   
   
-  #add-issue-form {
+  #add-task-form {
     position: fixed;
     top: 0;
     left: 0;
@@ -124,7 +124,7 @@
     background: rgba(0, 0, 0, 0.123);
   }
   
-  #add-issue-form form {
+  #add-task-form form {
     display: flex;
     flex-direction: column;
     place-items: center;
@@ -135,7 +135,7 @@
     box-shadow: 4px 4px 2px gray;
   }
   
-  #add-issue-form form input {
+  #add-task-form form input {
     font-size: larger;
     width: 100%;
     border-radius: 5px;
@@ -150,28 +150,28 @@
     #root {
         overflow: auto;
     }
-    #issues {
+    #tasks {
         justify-content: flex-start;
         flex-direction: column;
     }
-    #issues>section {
+    #tasks>section {
         flex-direction: row;
         height: 200px;
         min-height: auto;
     }
-    .issues-head {
+    .tasks-head {
         width: 100px;
     }
-    .issues-head>h3 {
+    .tasks-head>h3 {
         font-size: large;
     }
-    .issue {
+    .task {
         width: 100px;
     }
-    .issue .tags {
+    .task .tags {
         display: none;
     }
-    .issue .assignee {
+    .task .assignee {
         display: none;
     }
 

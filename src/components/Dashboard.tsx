@@ -3,7 +3,16 @@ import { SearchInput } from "./commons";
 import '../styles/dashboard.css'
 
 import Toby from '../assets/toby.jpg'
+import Aoba from '../assets/ichi.jpg'
+import Lex from '../assets/lex.jpg'
+import Musk from '../assets/musk.jpg'
 import Menu from '../assets/menu.svg'
+
+const TEAMS = {
+    researcher: [Toby, Aoba, Musk],
+    febe: [Lex, Toby],
+    pm: [Toby, Aoba]
+}
 
 
 export default function Dashboard() {
@@ -43,9 +52,27 @@ export default function Dashboard() {
 
                 <div className="teams">
                     <h5>TEAMS</h5>
-                    <a href='#'>Researcher</a>
-                    <a href='#'>FE/BE Team</a>
-                    <a href='#'>PM Team</a>
+                    <a href='#'>
+                        Researcher
+                        <span className="members-icon">
+                            {TEAMS.researcher.map(imgURL => 
+                            <img src={imgURL} key={imgURL} className="profile-img" alt='profile' />)}
+                        </span>
+                    </a>
+                    <a href='#'>
+                        FE/BE Team
+                        <span className="members-icon">
+                            {TEAMS.febe.map(imgURL => 
+                            <img src={imgURL} key={imgURL} className="profile-img" alt='profile' />)}
+                        </span>
+                    </a>
+                    <a href='#'>
+                        PM Team
+                        <span className="members-icon">
+                            {TEAMS.pm.map(imgURL => 
+                            <img src={imgURL} key={imgURL} className="profile-img" alt='profile' />)}  
+                        </span>
+                    </a>
 
                 </div>
 

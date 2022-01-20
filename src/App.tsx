@@ -7,7 +7,7 @@ import LexFridman from './assets/lex.jpg'
 import Musk from './assets/musk.jpg'
 import Aoba from './assets/ichi.jpg'
 
-
+import iconP from './assets/p.svg'
 
 
 function App() {
@@ -20,7 +20,10 @@ function App() {
       <Dashboard />
 
       <header>
-        <h1>Kanban Prosa</h1>
+        <h1>
+          <img src={iconP} alt='p' />
+          Kanban Prosa
+        </h1>
         <div id='members'>
           <img alt='profile' src={LexFridman} className='profile-img' />
           <img alt='profile' src={Musk} className='profile-img' />

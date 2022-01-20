@@ -91,6 +91,18 @@
     color: var(--color-shadow);
 }
 
+.teams a {
+    height: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.teams img {
+    height: 2rem;
+    width: 2rem;
+    padding: 0 0.2rem;
+}
+
 
 
 @media only screen and (min-width: 1200px) {

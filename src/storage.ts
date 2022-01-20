@@ -1,12 +1,12 @@
 import { atom, useAtom } from "jotai"
 import { DOMRectProps } from "sukuroru"
-import { issuesType, issueType, statuses } from "./components/commons.interfaces"
+import { tasksType, taskType, statuses } from "./components/commons.interfaces"
 
 
 
-const issuesData = atom({} as issuesType)
+const tasksData = atom({} as tasksType)
 const currentTargetBox = atom<statuses | null>(null)
-const issuesBoxRect = atom({
+const tasksBoxRect = atom({
     backlog: {} as DOMRect | undefined,
     todo: {} as DOMRect | undefined,
     done: {} as DOMRect | undefined
@@ -15,7 +15,7 @@ const issuesBoxRect = atom({
 const updateCurrentTargetBox = atom(
     (get) => get(currentTargetBox),
     (get, set, [mouseX, mouseY]) => {
-        const boxesRect = get(issuesBoxRect)
+        const boxesRect = get(tasksBoxRect)
         for (const status of Object.keys(boxesRect)) {
             const rect = boxesRect[status as statuses]
             if (
@@ -35,28 +35,28 @@ const updateCurrentTargetBox = atom(
 
 const showAddForm = atom<statuses | false>(false)
 
-const addIssue = atom(
+const addtask = atom(
     null,
-    (get, set, { data, status }: {data: Omit<issueType, 'issue_id'>, status: statuses }) => {
-        const allData = get(issuesData)
+    (get, set, { data, status }: {data: Omit<taskType, 'task_id'>, status: statuses }) => {
+        const allData = get(tasksData)
         const id = Math.max(...getAllIDs(allData)) + 1
-        set(issuesData, prev => {
-            prev[status].push({...data, issue_id: id})
+        set(tasksData, prev => {
+            prev[status].push({...data, task_id: id})
             return {...prev}
         })
     }
 )
 
-const moveIssue = atom(
-    (get) => get(issuesData),
-    (get, set, {issue, from}: {issue: issueType, from: statuses }) => {
+const movetask = atom(
+    (get) => get(tasksData),
+    (get, set, {task, from}: {task: taskType, from: statuses }) => {
         const to = get(currentTargetBox)
-        set(issuesData, (data) => {
+        set(tasksData, (data) => {
             if (!to || from === to) return data
             data[from] = data[from]
-            .filter(issu => issu.issue_id != issue.issue_id)
-            .sort((a, b) => a.issue_id - b.issue_id)
-            data[to].push(issue)
+            .filter(issu => issu.task_id != task.task_id)
+            .sort((a, b) => a.task_id - b.task_id)
+            data[to].push(task)
             return {...data}
         })
         set(currentTargetBox, null)
@@ -65,7 +65,7 @@ const moveIssue = atom(
 
 
 // helper  function 
-const getAllIDs = (data: issuesType) => {
+const getAllIDs = (data: tasksType) => {
     let ids = []
     for (const key of Object.keys(data)) {
         ids.push(...getIDs(data[key as statuses]))
@@ -73,16 +73,16 @@ const getAllIDs = (data: issuesType) => {
     return ids
 }
 
-const getIDs = (data: issueType[]) => data.reduce((prev, cur) => [...prev, cur.issue_id], [] as number[])
+const getIDs = (data: taskType[]) => data.reduce((prev, cur) => [...prev, cur.task_id], [] as number[])
 
 
 
 export { 
-    issuesData, 
-    moveIssue, 
-    issuesBoxRect, 
+    tasksData, 
+    movetask, 
+    tasksBoxRect, 
     currentTargetBox, 
     updateCurrentTargetBox,
-    addIssue,
+    addtask,
     showAddForm
 }
