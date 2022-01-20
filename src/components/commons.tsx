@@ -7,7 +7,7 @@ const SearchInput = ({className='', ...props}: JSX.IntrinsicElements['input']) =
             <input  {...props}>
                 
             </input>
-            <img src={Magnifier} />
+            <img alt='search' src={Magnifier} />
         </div>
     )
 }
