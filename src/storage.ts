@@ -2,12 +2,6 @@ import { atom, useAtom } from "jotai"
 import { DOMRectProps } from "sukuroru"
 import { issuesType, issueType, statuses } from "./components/commons.interfaces"
 
-interface draggedIssueType {
-    from: statuses,
-    to: statuses,
-    issue: issueType
-}
-
 
 
 const issuesData = atom({} as issuesType)
@@ -39,19 +33,56 @@ const updateCurrentTargetBox = atom(
     }
 )
 
+const showAddForm = atom<statuses | false>(false)
+
+const addIssue = atom(
+    null,
+    (get, set, { data, status }: {data: Omit<issueType, 'issue_id'>, status: statuses }) => {
+        const allData = get(issuesData)
+        const id = Math.max(...getAllIDs(allData)) + 1
+        set(issuesData, prev => {
+            prev[status].push({...data, issue_id: id})
+            return {...prev}
+        })
+    }
+)
 
 const moveIssue = atom(
     (get) => get(issuesData),
-    (get, set, {issue, from ,to}: {issue: issueType, from: statuses, to: statuses}) => {
+    (get, set, {issue, from}: {issue: issueType, from: statuses }) => {
+        const to = get(currentTargetBox)
         set(issuesData, (data) => {
-            if (from === to) return data
+            if (!to || from === to) return data
             data[from] = data[from]
             .filter(issu => issu.issue_id != issue.issue_id)
             .sort((a, b) => a.issue_id - b.issue_id)
             data[to].push(issue)
             return {...data}
         })
+        set(currentTargetBox, null)
     }
 )
 
-export { issuesData, moveIssue, issuesBoxRect, currentTargetBox, updateCurrentTargetBox }
+
+// helper  function 
+const getAllIDs = (data: issuesType) => {
+    let ids = []
+    for (const key of Object.keys(data)) {
+        ids.push(...getIDs(data[key as statuses]))
+    }
+    return ids
+}
+
+const getIDs = (data: issueType[]) => data.reduce((prev, cur) => [...prev, cur.issue_id], [] as number[])
+
+
+
+export { 
+    issuesData, 
+    moveIssue, 
+    issuesBoxRect, 
+    currentTargetBox, 
+    updateCurrentTargetBox,
+    addIssue,
+    showAddForm
+}

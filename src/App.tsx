@@ -1,7 +1,11 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
+import Dashboard from './components/Dashboard'
 import Issues from './components/Issues'
-import useFetch from './components/useFetch'
-import data from './ISSUES.json'
+
+
+import LexFridman from './assets/lex.jpg'
+import Musk from './assets/musk.jpg'
+import Aoba from './assets/ichi.jpg'
 
 
 
@@ -13,7 +17,18 @@ function App() {
 
   return (
     <>
-      <h1>KANBAN PROSA</h1>
+      <Dashboard />
+
+      <header>
+        <h1>Kanban Prosa</h1>
+        <div id='members'>
+          <img src={LexFridman} className='profile-img' />
+          <img src={Musk} className='profile-img' />
+          <img src={Aoba} className='profile-img' />
+          <p>50 Members</p>
+        </div>
+      </header>
+
       <Issues />
     </>
   )

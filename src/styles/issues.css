@@ -1,0 +1,178 @@
+
+#issues {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    place-items: flex-start;
+    height: 80%;
+    padding: 2rem;
+    overflow: auto;
+  }
+
+#issues button {
+    background: var(--color-btn);
+}
+
+  .issues-head {
+    display: flex;
+    width: calc(100% - 2rem);
+    margin: 1rem 0;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    place-items: center;
+  }
+  
+  #issues>section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    border-radius: 5px;
+    flex: 1;
+    min-height: 60%;
+    box-shadow: 2px 2px 2px 2px var(--color-shadow-dim);
+    place-items: center;
+    transition: 0.6s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+  
+  .issues-head>h3 {
+    padding: 1rem 0;
+    font-size: xx-large;
+  }
+  
+  #issues>section.targeted {
+    background: var(--color-bg-1);
+  }
+  
+  .issue {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: var(--color-card);
+    touch-action: none;
+    display: grid;
+    grid-template-rows: 40% auto auto;
+    grid-template-areas: 
+    "title title"
+    "assignee assignee"
+    "tags days";
+    gap: 0.4rem;
+    height: 7rem;
+    width: 80%;
+    transition: background-color 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  
+  .issue * {
+    overflow: hidden;
+  }
+  
+  .issue h4 {
+    grid-area: title;
+    width: 100%;
+  }
+  
+  .issue p {
+    font-size: smaller;
+    margin: 0;
+    
+  }
+  
+  .issue .assignee {
+    grid-area: assignee;
+    margin: 0;
+    font-size: small;
+    opacity: 0.7;
+  }
+  
+  .issue .tags {
+    grid-area: tags;
+    margin: 0;
+    padding: 0.3rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    background: var(--color-tags);
+    width: min-content;
+    border-radius: 0.5rem;
+    height: min-content;
+  }
+  
+  .tags p {
+    mix-blend-mode: color-dodge;
+    color: var(--color-tags);
+  }
+  
+  .issue small {
+    grid-area: days;
+    text-align: end;
+  }
+  
+  .issue:hover, .issue.hovered {
+    cursor: pointer;
+    background: var(--color-card-selected);
+    z-index: 2;
+  }
+  
+  
+  #add-issue-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.123);
+  }
+  
+  #add-issue-form form {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    gap: 2rem;
+    background: white;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    box-shadow: 4px 4px 2px gray;
+  }
+  
+  #add-issue-form form input {
+    font-size: larger;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid rgb(94, 146, 15);
+    outline: none;
+    padding: 0.4em;
+    text-align: center;
+  }
+
+
+@media only screen and (max-width: 800px) {
+    #root {
+        overflow: auto;
+    }
+    #issues {
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+    #issues>section {
+        flex-direction: row;
+        height: 200px;
+        min-height: auto;
+    }
+    .issues-head {
+        width: 100px;
+    }
+    .issues-head>h3 {
+        font-size: large;
+    }
+    .issue {
+        width: 100px;
+    }
+    .issue .tags {
+        display: none;
+    }
+    .issue .assignee {
+        display: none;
+    }
+
+}
