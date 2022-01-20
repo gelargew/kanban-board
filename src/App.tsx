@@ -2,11 +2,9 @@ import { useEffect, useLayoutEffect, useState } from 'react'
 import Dashboard from './components/Dashboard'
 import Issues from './components/Issues'
 
-
 import LexFridman from './assets/lex.jpg'
 import Musk from './assets/musk.jpg'
 import Aoba from './assets/ichi.jpg'
-
 import iconP from './assets/p.svg'
 
 

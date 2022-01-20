@@ -17,7 +17,7 @@ import {
 } from "../storage";
 import data from '../ISSUES.json'
 
-export default function tasks() {
+export default function Issues() {
     const [{backlog, todo, done}, settasks] = useAtom(tasksData)
     const [showFormBox] = useAtom(showAddForm)
     useEffect(() => {
@@ -44,7 +44,9 @@ const TasksBox = ({ tasks, status }: { tasks: taskType[] | undefined, status: st
     const rect = useBoundingClientObserver(ref)
     const classname = useMemo(() => status === curTarget ? 'targeted': '', [curTarget])
     const [,setShowFormBox] = useAtom(showAddForm)
+
     useEffect(() => {
+        // observe each tasks box dimension each time it change sizes
         setboxRect(prev => {
             prev[status] = rect.boundingClient
             return prev
@@ -74,6 +76,8 @@ const TaskCard = ({ task, status }: { task: taskType, status: statuses }) => {
     const [classname, setClassname] = useState('task')
 
     const bind = useDrag(({down, movement: [mx, my],...state}) => {
+        // update current tasks box target according to the mouse position, move the current dragged task 
+        // into the target list when mouseUp  trigger
         spring.start({ x: down ? mx : 0, y: down ? my : 0, immediate: down })
         updateTarget(state.xy)
         if (!down) {
