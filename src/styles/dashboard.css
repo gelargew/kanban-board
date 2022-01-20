@@ -25,10 +25,14 @@
     width: auto;
 }
 
-.input-search input {
+.input-search input, .input-search input::placeholder {
     color: var(--color-dashboard-text);
 }
 
+.input-search img {
+    width: auto;
+    height: 80%;
+}
 
 
 #dashboard>.profile {

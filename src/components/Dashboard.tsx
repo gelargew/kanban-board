@@ -14,14 +14,14 @@ export default function Dashboard() {
     return (
         <>
             <button className="dashboard-open" onClick={() => setIsClosed(false)}>
-                <img src={Menu} />
+                <img alt='menu' src={Menu} />
             </button>
             <div id='dashboard' className={isClosed ? 'dashboard-hidden' : ''}>
                 <button className="dashboard-close" onClick={() => setIsClosed(true)}>X</button>
                 <SearchInput placeholder="Search" />
 
                 <div className="profile">
-                    <img className='profile-img' src={Toby}/>
+                    <img alt='profile' className='profile-img' src={Toby}/>
                     <h5>Toby Maguire</h5>
                     <p className="role">Spider Man</p>
                     <div className="task1">

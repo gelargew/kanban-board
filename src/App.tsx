@@ -22,9 +22,9 @@ function App() {
       <header>
         <h1>Kanban Prosa</h1>
         <div id='members'>
-          <img src={LexFridman} className='profile-img' />
-          <img src={Musk} className='profile-img' />
-          <img src={Aoba} className='profile-img' />
+          <img alt='profile' src={LexFridman} className='profile-img' />
+          <img alt='profile' src={Musk} className='profile-img' />
+          <img alt='profile' src={Aoba} className='profile-img' />
           <p>50 Members</p>
         </div>
       </header>
