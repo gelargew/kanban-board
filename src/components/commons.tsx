@@ -1,4 +1,4 @@
-import Magnifier from '../assets/Magnifier.svg'
+import Magnifier from '../assets/magnifier.svg'
 
 const SearchInput = ({className='', ...props}: JSX.IntrinsicElements['input']) => {
 
