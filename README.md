@@ -39,7 +39,7 @@ npm run dev
 first few hours was quite unproductive, switching between useContext and zustand until found out that the current version of zustand have some typescript bug. so im trying jotai for the first time, its my first time using atom based state management so i speend more extra hours to learn from the documentation. my code was definitely unoptimal and messy, but my state/storage ended up performs pretty well (jotai is good :)).
 
 3. coding bussiness logic / data interaction  \
-assigning a dragEvent into eash task, keeping track of mouse position while dragging, deciding where the task should go when it snap
+assigning a dragEvent into eash task, keeping track of mouse position while dragging, deciding where the task should go when it snap. \
 things i learn:
 -   RectDOM & RectDOMReadOnly doesnt give the same values while having the same description on MDN.
 -   Event.currentTarget is almost always better than Event.target because of event bubbling.
@@ -54,5 +54,5 @@ things i learn:
 
 
 
-#### notes 
+#### notes: 
 - untested on safari Mac
